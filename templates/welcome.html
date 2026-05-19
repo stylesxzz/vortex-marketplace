@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">VORTEX MARKETPLACE</div>
+    <p class="tagline">Secure Gateway • 100% Anonymous • Bitcoin Powered</p>
+</header>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<div style="max-width: 900px; margin: 50px auto;">
+    <div class="blocks-grid">
+        <div class="block">
+            <div class="block-title">
+                <span class="block-icon">🔐</span>
+                LOGIN
+            </div>
+            <div class="block-content">
+                Access your existing account
+            </div>
+            <form method="POST" action="{{ url_for('login') }}" style="background: transparent; border: none; padding: 0;">
+                <input type="text" name="username" placeholder="Enter your username" required>
+                <button type="submit" style="width: 100%;">LOGIN</button>
+            </form>
+        </div>
+
+        <div class="block">
+            <div class="block-title">
+                <span class="block-icon">✨</span>
+                REGISTER
+            </div>
+            <div class="block-content">
+                Create a new anonymous account
+            </div>
+            <form method="POST" action="{{ url_for('register') }}" style="background: transparent; border: none; padding: 0;">
+                <input type="text" name="username" placeholder="Choose a username" required>
+                <input type="text" name="wallet" placeholder="Your BTC Wallet" required>
+                <button type="submit" style="width: 100%;">REGISTER</button>
+            </form>
+        </div>
+
+        <div class="block">
+            <div class="block-title">
+                <span class="block-icon">👁️</span>
+                GUEST MODE
+            </div>
+            <div class="block-content">
+                Browse products without an account
+            </div>
+            <a href="{{ url_for('guest_mode') }}" class="btn" style="display: block; text-align: center; width: 100%; margin-top: 20px;">ENTER</a>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 50px; color: #888888; font-size: 11px; letter-spacing: 1px;">
+    <p>SECURE • ANONYMOUS • DECENTRALIZED</p>
+    <p>Bitcoin Payments • Tor Network Ready • v15.1 Cyber Edition</p>
+</div>
+{% endblock %}

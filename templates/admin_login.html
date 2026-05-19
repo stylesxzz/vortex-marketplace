@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">ADMIN PANEL</div>
+    <p class="tagline">Secure Access Required</p>
+</header>
+
+<div style="max-width: 400px; margin: 50px auto;">
+    {% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('admin_panel') }}" class="block">
+        <div class="block-title">
+            <span class="block-icon">🔐</span>
+            ADMIN PASSWORD
+        </div>
+        
+        <label>Enter Admin Password:</label>
+        <input type="password" name="password" placeholder="••••••••" required>
+        
+        <button type="submit" class="btn-danger" style="width: 100%; margin-top: 20px;">AUTHENTICATE</button>
+    </form>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('main_menu') }}" class="btn btn-secondary">BACK</a>
+</div>
+{% endblock %}

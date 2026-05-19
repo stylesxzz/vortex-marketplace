@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">{{ product.name }}</div>
+    <p class="tagline">Product Details</p>
+</header>
+
+<div style="max-width: 800px; margin: 30px auto;">
+    <div class="block">
+        <div class="block-title">PRODUCT INFORMATION</div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>Name:</strong> {{ product.name }}
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>Description:</strong>
+            <p style="margin-top: 5px; color: #cccccc;">{{ product.description }}</p>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>Price:</strong> <span style="color: #ffffff; font-size: 20px;">{{ product.price }} BTC</span>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>Type:</strong> {{ product.type.upper() }}
+        </div>
+        
+        <div style="margin-bottom: 20px; padding: 15px 0; border-top: 1px solid #333333; border-bottom: 1px solid #333333;">
+            <strong>Seller:</strong> {{ product.seller }}
+            {% if product.verified %}
+            <span class="verified-badge">✓ VERIFIED</span>
+            {% endif %}
+            <div style="color: #888888; font-size: 12px; margin-top: 5px;">❤️ {{ product.likes }} likes</div>
+        </div>
+
+        {% if not product.is_guest %}
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <form method="POST" action="{{ url_for('like_seller', seller_id=product.seller_id) }}" style="background: transparent; border: none; padding: 0; flex: 1;">
+                <button type="submit" class="like-btn" style="width: 100%;">❤️ LIKE SELLER</button>
+            </form>
+        </div>
+        {% endif %}
+
+        {% if product.is_guest %}
+        <div class="alert alert-warning">
+            You must create an account to purchase this product.
+            <a href="{{ url_for('welcome') }}" class="btn" style="margin-top: 10px;">CREATE ACCOUNT</a>
+        </div>
+        {% else %}
+        <form method="POST" action="{{ url_for('buy_product', product_id=product.id) }}" style="background: #0a0a0a; padding: 20px; border: 2px solid #333333; margin-top: 20px;">
+            <div class="block-title">PURCHASE</div>
+            
+            <div style="background: #1a1a1a; padding: 15px; border: 1px solid #333333; margin-bottom: 15px;">
+                <strong>Send Payment To:</strong>
+                <div style="color: #ffffff; margin-top: 5px; word-break: break-all; font-size: 12px;">{{ product.seller_wallet }}</div>
+            </div>
+            
+            <label>Amount to Send: <span style="color: #ffffff;">{{ product.price }} BTC</span></label>
+            
+            {% if product.type == 'digital' %}
+            <label>Email (for delivery):</label>
+            <input type="email" name="email" required>
+            {% else %}
+            <label>Shipping Address:</label>
+            <textarea name="address" required></textarea>
+            {% endif %}
+            
+            <label>Transaction ID (TXID):</label>
+            <input type="text" name="txid" placeholder="Paste your transaction ID here" required>
+            
+            <button type="submit" style="width: 100%; margin-top: 20px;">CONFIRM PURCHASE</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('market') }}" class="btn btn-secondary">BACK TO MARKET</a>
+</div>
+{% endblock %}

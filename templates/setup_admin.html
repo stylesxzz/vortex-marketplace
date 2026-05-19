@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}First Run - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">FIRST RUN SETUP</div>
+    <p class="tagline">Initialize Your Marketplace</p>
+</header>
+
+<div style="max-width: 500px; margin: 50px auto;">
+    <div class="block" style="border-color: #ff0000;">
+        <div class="block-title">
+            <span class="block-icon">🔐</span>
+            SET ADMIN PASSWORD
+        </div>
+        
+        <p style="color: #cccccc; margin-bottom: 20px; font-size: 12px;">
+            This password will protect your admin panel. Choose a strong password and keep it safe!
+        </p>
+        
+        <form method="POST" action="{{ url_for('setup_admin') }}">
+            <label>Admin Password:</label>
+            <input type="password" name="password" placeholder="••••••••" required>
+            
+            <button type="submit" class="btn-danger" style="width: 100%; margin-top: 20px;">SET PASSWORD</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Sell Product - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">CREATE LISTING</div>
+    <p class="tagline">List a New Product (3% Fee)</p>
+</header>
+
+<div style="max-width: 600px; margin: 30px auto;">
+    {% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('sell_product') }}">
+        <label>Product Name:</label>
+        <input type="text" name="name" placeholder="Enter product name" required>
+
+        <label>Description:</label>
+        <textarea name="description" placeholder="Describe your product..." required></textarea>
+
+        <label>Product Type:</label>
+        <select name="type" required>
+            <option value="fisico">Physical Product</option>
+            <option value="digital">Digital Product</option>
+        </select>
+
+        <label>Price (in BTC):</label>
+        <input type="number" name="price" placeholder="0.00000000" step="0.00000001" required>
+
+        <div style="background: #1a1a1a; padding: 15px; border: 2px solid #333333; margin: 15px 0;">
+            <strong>Listing Fee (3%):</strong>
+            <div style="color: #ffffff; margin-top: 5px; font-size: 12px;">Will be calculated based on your price</div>
+        </div>
+
+        <label>Digital Content/Link (if digital product):</label>
+        <input type="text" name="content" placeholder="Link or access information">
+
+        <div style="background: #1a1a1a; padding: 15px; border: 2px solid #333333; margin: 15px 0;">
+            <strong>Send Listing Fee To:</strong>
+            <div style="color: #ffffff; margin-top: 5px; word-break: break-all; font-size: 12px;">{{ admin_wallet }}</div>
+        </div>
+
+        <label>Transaction ID (TXID) of Fee Payment:</label>
+        <input type="text" name="txid" placeholder="Paste your transaction ID here" required>
+
+        <button type="submit" style="width: 100%;">CREATE LISTING</button>
+    </form>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('main_menu') }}" class="btn btn-secondary">BACK</a>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Market - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">MARKET</div>
+    <p class="tagline">Browse Available Products</p>
+</header>
+
+<div class="search-container">
+    <form method="GET" action="{{ url_for('market') }}" style="display: flex; width: 100%; gap: 10px;">
+        <input type="text" name="search" placeholder="Search products..." value="{{ search }}" style="flex: 1;">
+        <button type="submit">SEARCH</button>
+        {% if search %}
+        <a href="{{ url_for('market') }}" class="btn btn-secondary">CLEAR</a>
+        {% endif %}
+    </form>
+</div>
+
+{% if search %}
+<div style="color: #888888; font-size: 12px; margin-bottom: 20px;">
+    Searching for: <strong>{{ search }}</strong>
+</div>
+{% endif %}
+
+{% if products %}
+<div class="products-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-price">{{ product.price }} BTC</div>
+        <div class="product-seller">
+            Seller: {{ product.seller }}
+            {% if product.verified %}
+            <span class="verified-badge">✓ VERIFIED</span>
+            {% endif %}
+        </div>
+        <div style="color: #888888; font-size: 11px; margin-bottom: 10px;">
+            ❤️ {{ product.likes }} likes
+        </div>
+        <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn" style="display: block; text-align: center;">VIEW</a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    {% if search %}
+    No products found matching "{{ search }}"
+    {% else %}
+    No products available at the moment
+    {% endif %}
+</div>
+{% endif %}
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('main_menu') }}" class="btn btn-secondary">BACK</a>
+</div>
+{% endblock %}

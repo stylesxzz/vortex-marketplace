@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}My Inventory - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">MY INVENTORY</div>
+    <p class="tagline">Your Products & Sales</p>
+</header>
+
+<div style="max-width: 900px; margin: 30px auto;">
+    {% if items %}
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price (BTC)</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                    {% if item.sold %}
+                    <span class="status status-sold">SOLD</span>
+                    {% else %}
+                    <span class="status status-active">ACTIVE</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info">
+        You haven't listed any products yet. <a href="{{ url_for('sell_product') }}" style="color: #00ffff;">Create your first listing</a>!
+    </div>
+    {% endif %}
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('sell_product') }}" class="btn">CREATE LISTING</a>
+    <a href="{{ url_for('main_menu') }}" class="btn btn-secondary">BACK</a>
+</div>
+{% endblock %}

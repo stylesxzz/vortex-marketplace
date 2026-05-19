@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}My Cart - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">MY CART</div>
+    <p class="tagline">Your Purchases</p>
+</header>
+
+<div style="max-width: 900px; margin: 30px auto;">
+    {% if items %}
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Amount (BTC)</th>
+                <th>Date</th>
+                <th>Access</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.date }}</td>
+                <td>
+                    {% if item.content %}
+                    <span style="color: #ffffff;">{{ item.content }}</span>
+                    {% else %}
+                    <span style="color: #888888;">Check email for details</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info">
+        Your cart is empty. Start shopping in the <a href="{{ url_for('market') }}" style="color: #00ffff;">Market</a>!
+    </div>
+    {% endif %}
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('main_menu') }}" class="btn btn-secondary">BACK</a>
+</div>
+{% endblock %}

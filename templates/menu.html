@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Main Menu - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">VORTEX MARKETPLACE</div>
+    <p class="tagline">{{ user.username if not user.is_guest else 'GUEST MODE' }}</p>
+</header>
+
+<div class="user-info">
+    <div>
+        <span class="user-status">
+            Status: <strong>{{ user.username if not user.is_guest else 'GUEST' }}</strong>
+        </span>
+    </div>
+    <div>
+        <span class="user-status">
+            Products Available: <strong>{{ product_count }}</strong>
+        </span>
+    </div>
+</div>
+
+<div class="home-grid">
+    <div class="menu-block">
+        <div class="menu-block-icon">🛍️</div>
+        <div class="menu-block-title">Market</div>
+        <div class="menu-block-desc">Browse and purchase products</div>
+        <a href="{{ url_for('market') }}" class="btn">ENTER</a>
+    </div>
+
+    {% if not user.is_guest %}
+    <div class="menu-block">
+        <div class="menu-block-icon">📦</div>
+        <div class="menu-block-title">Sell Product</div>
+        <div class="menu-block-desc">List a new product (3% fee)</div>
+        <a href="{{ url_for('sell_product') }}" class="btn">CREATE</a>
+    </div>
+
+    <div class="menu-block">
+        <div class="menu-block-icon">🛒</div>
+        <div class="menu-block-title">My Cart</div>
+        <div class="menu-block-desc">View your purchases</div>
+        <a href="{{ url_for('cart') }}" class="btn">VIEW</a>
+    </div>
+
+    <div class="menu-block">
+        <div class="menu-block-icon">📊</div>
+        <div class="menu-block-title">Inventory</div>
+        <div class="menu-block-desc">Manage your sales</div>
+        <a href="{{ url_for('inventory') }}" class="btn">MANAGE</a>
+    </div>
+
+    <div class="menu-block">
+        <div class="menu-block-icon">👤</div>
+        <div class="menu-block-title">Profile</div>
+        <div class="menu-block-desc">Your account settings</div>
+        <a href="{{ url_for('profile') }}" class="btn">SETTINGS</a>
+    </div>
+
+    <div class="menu-block">
+        <div class="menu-block-icon">💬</div>
+        <div class="menu-block-title">Global Chat</div>
+        <div class="menu-block-desc">Community discussion</div>
+        <a href="{{ url_for('chat') }}" class="btn">CHAT</a>
+    </div>
+
+    <div class="menu-block">
+        <div class="menu-block-icon">🔐</div>
+        <div class="menu-block-title">Admin Panel</div>
+        <div class="menu-block-desc">Marketplace management</div>
+        <a href="{{ url_for('admin_panel') }}" class="btn">ACCESS</a>
+    </div>
+    {% else %}
+    <div class="menu-block">
+        <div class="menu-block-icon">⚠️</div>
+        <div class="menu-block-title">Create Account</div>
+        <div class="menu-block-desc">Unlock buying and selling</div>
+        <a href="{{ url_for('welcome') }}" class="btn">REGISTER</a>
+    </div>
+    {% endif %}
+
+    <div class="menu-block">
+        <div class="menu-block-icon">🚪</div>
+        <div class="menu-block-title">Logout</div>
+        <div class="menu-block-desc">Switch to another account</div>
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary">LOGOUT</a>
+    </div>
+</div>
+{% endblock %}

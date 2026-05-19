@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vortex Marketplace{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cyber_style.css') }}">
+</head>
+<body>
+    {% if session.get('username') and session.get('username') != 'GUEST' %}
+    <nav>
+        <div class="logo">VORTEX MARKETPLACE</div>
+        <div>
+            <a href="{{ url_for('main_menu') }}">Home</a>
+            <a href="{{ url_for('market') }}">Market</a>
+            <a href="{{ url_for('cart') }}">Cart</a>
+            <a href="{{ url_for('inventory') }}">Inventory</a>
+            <a href="{{ url_for('admin_panel') }}">Admin</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

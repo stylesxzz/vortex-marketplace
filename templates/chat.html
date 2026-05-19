@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Global Chat - Vortex Marketplace{% endblock %}
+
+{% block content %}
+<header>
+    <div class="logo">GLOBAL CHAT</div>
+    <p class="tagline">Community Discussion</p>
+</header>
+
+<div style="max-width: 900px; margin: 30px auto;">
+    <div class="block" style="border-color: #00ffff; max-height: 500px; overflow-y: auto;">
+        <div class="block-title">
+            <span class="block-icon">💬</span>
+            MESSAGES
+        </div>
+
+        {% if messages %}
+        <div style="background: #0a0a0a; padding: 15px; border-radius: 5px;">
+            {% for msg in messages %}
+            <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333333;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <strong style="color: #ffffff;">{{ msg.username }}</strong>
+                    <span style="color: #888888; font-size: 11px;">{{ msg.timestamp }}</span>
+                </div>
+                <div style="color: #cccccc; word-wrap: break-word;">{{ msg.message }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info">No messages yet. Be the first to chat!</div>
+        {% endif %}
+    </div>
+
+    <div class="block" style="margin-top: 20px; border-color: #00ff00;">
+        <div class="block-title">
+            <span class="block-icon">✉️</span>
+            SEND MESSAGE
+        </div>
+
+        <form method="POST" action="{{ url_for('send_chat_message') }}" style="background: transparent; border: none; padding: 0;">
+            <label>Your Message (max 500 characters):</label>
+            <textarea name="message" placeholder="Type your message..." maxlength="500" required style="min-height: 80px;"></textarea>
+            <button type="submit" style="width: 100%;">SEND</button>
+        </form>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('main_menu') }}" class="btn btn-secondary">BACK</a>
+</div>
+{% endblock %}

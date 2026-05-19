@@ -1,0 +1,49 @@
+# Database files
+*.db
+*.db-journal
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Tor configuration
+.tor_vortex/
+hidden_service/
+
+# Environment files
+.env
+.venv
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Flask
+instance/
+.webassets-cache
+
+# Sensitive data
+admin_password.txt
+private_key.pem
+*.key
+*.gpg
